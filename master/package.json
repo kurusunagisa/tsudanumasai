@@ -1,0 +1,22 @@
+{
+  "name": "master",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/index.html --dist-dir dev",
+    "build": "parcel build src/index.html --public-url ./ --dist-dir docs --no-source-maps",
+    "clean": "del-cli .parcel-cache dev docs",
+    "prebuild": "del-cli docs"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "textalive-app-api": "^0.3.2"
+  },
+  "devDependencies": {
+    "del-cli": "^4.0.1",
+    "parcel": "^2.0.0-beta.3.1",
+    "process": "^0.11.10"
+  }
+}

@@ -1,0 +1,64 @@
+#content {
+  z-index: 10;
+}
+
+#overlay {
+  z-index: 20;
+}
+
+#container {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+#container p {
+  text-align: center;
+  user-select: none;
+  padding: 1em;
+  font-size: 4vw;
+}
+
+#media {
+  background: #0003;
+  position: absolute;
+  bottom: 30px;
+  right: 10px;
+}
+
+#meta {
+  background: #0003;
+  padding: 5px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#control {
+  background: #0003;
+  padding: 5px;
+  position: absolute;
+  bottom: 30px;
+  left: 10px;
+}
+
+#control > button {
+  margin-right: 5px;
+}
+
+#control > button:last-child {
+  margin-right: 0;
+}
+
+#beatbar {
+  width: 0;
+  height: 20px;
+  background: #000;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/*# sourceMappingURL=index.fc3849e6.css.map */
