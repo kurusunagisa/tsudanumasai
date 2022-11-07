@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel src/index.html --dist-dir dev",
-    "build": "parcel build src/index.html --public-url ./ --dist-dir docs --no-source-maps",
+    "dev": "parcel src/index.html src/select.html --dist-dir dev",
+    "build": "parcel build src/*.html --public-url ./ --dist-dir docs --no-source-maps",
     "clean": "del-cli .parcel-cache dev docs",
     "prebuild": "del-cli docs"
   },

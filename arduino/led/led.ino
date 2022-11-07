@@ -23,13 +23,13 @@ void loop() {
 
   // 受け取ったデータがあるなら送りかえしてスイッチ操作
   if (bufferStr.length() > 0) {
-    Serial.print("I received: "); 
-    Serial.println(bufferStr);
+    //Serial.print("I received: "); 
+    //Serial.println(bufferStr);
     if (okStr.compareTo(bufferStr) == 0) {
       digitalWrite(LED, HIGH);
     } else {
       digitalWrite(LED, LOW);
     }
   }
-  delay(100);
+  delay(10);
 }

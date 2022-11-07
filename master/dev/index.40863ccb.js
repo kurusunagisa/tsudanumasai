@@ -590,7 +590,6 @@ function onTimerReady() {
     document.querySelectorAll("button").forEach((btn)=>btn.disabled = false);
     let p = player.video.firstPhrase;
     jump.disabled = !p;
-    //player.timer.play();
     while(p && p.next){
         p.animate = animatePhrase;
         p = p.next;

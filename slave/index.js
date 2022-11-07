@@ -18,19 +18,15 @@ player.on("beatPlay",
     function(ev) {
         switch(ev.data.beat.number){
             case 1:
-                console.log("beat");
                 write("OK");
                 break;
             case 2:
-                console.log("beat");
                 write("NG");
                 break;
             case 3:
-                console.log("beat");
                 write("NG");
                 break;
             case 4:
-                console.log("beat");
                 write("NG");
                 break;
         }
