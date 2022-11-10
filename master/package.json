@@ -12,11 +12,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "p5": "^1.5.0",
+    "p5.play": "^3.2.4",
+    "planck": "^1.0.0-alpha.4",
     "textalive-app-api": "^0.3.2"
   },
   "devDependencies": {
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
     "del-cli": "^4.0.1",
+    "events": "^3.3.0",
     "parcel": "^2.0.0-beta.3.1",
-    "process": "^0.11.10"
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0"
   }
 }

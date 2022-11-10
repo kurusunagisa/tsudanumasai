@@ -1,10 +1,15 @@
+import {randomBytes} from "crypto"
+
 const searchButton = document.getElementById('search');
 
-searchButton.onclick = async () => {
-    contentId= await callAPI();
-    await console.log(contentId);
+searchButton.onclick = () => {
+    //contentId= await callAPI();
+    //await console.log(contentId);
     //window.location.href = await `index.html?ta_song_url=https://www.nicovideo.jp/watch/${contentId}`
-    window.open(`index.html?ta_song_url=https://www.nicovideo.jp/watch/${contentId}`)
+    const N = 20;
+    rand = randomBytes(N).reduce((p, i) => p + (i % 32).toString(32), '')
+    url = encodeURIComponent(document.getElementById('url').value);
+    window.open(`index.html?ta_song_url=${url}&${rand}`);
 }
 
 async function callAPI(){

@@ -546,6 +546,12 @@ const player = new (0, _textaliveAppApi.Player)({
     mediaBannerPosition: "bottom right",
     timer: songleTimer
 });
+window.addEventListener("beforeunload", (event)=>{
+    // Cancel the event as stated by the standard.
+    event.preventDefault();
+    // Chrome requires returnValue to be set.
+    return player.requestPause() && player.requestStop() && player.requestMediaSeek(0) && player.dispose();
+});
 const play = document.querySelector("#play");
 const jump = document.querySelector("#jump");
 const pause = document.querySelector("#pause");
@@ -558,7 +564,8 @@ player.addListener({
     onAppReady,
     onTimerReady,
     onTimeUpdate,
-    onThrottledTimeUpdate
+    onThrottledTimeUpdate,
+    onTextLoad
 });
 function onAppReady(app) {
     if (!app.managed) {
@@ -580,11 +587,14 @@ function onAppReady(app) {
         }
     });
 }
-onAppParameterUpdate: ()=>{
-    const params = player.app.options.parameters;
-};
-//楽曲の開始時によびだされる
+//楽曲の開始可能時によびだされる
 function onTimerReady() {
+    /*if (window.name != "video"){
+        window.name="video";
+        location.reload();
+    }else{
+        window.name="";
+    }*/ player.requestPause();
     artist.textContent = player.data.song.artist.name;
     song.textContent = player.data.song.name;
     document.querySelectorAll("button").forEach((btn)=>btn.disabled = false);
@@ -595,17 +605,48 @@ function onTimerReady() {
         p = p.next;
     }
 }
-//毎秒更新
 //拍の取得
 function onTimeUpdate(position) {
     const beat = player.findBeat(position);
     if (!beat) return;
 }
-function onThrottledTimeUpdate(position) {
-    positionEl.textContent = String(Math.floor(position));
+function onTextLoad(body) {
+    document.querySelector("#dummy").textContent = body?.text;
+}
+function onThrottledTimeUpdate(pos) {
+    positionEl.textContent = String(Math.floor(pos));
 }
 function animatePhrase(now, unit) {
     if (unit.contains(now)) phraseEl.textContent = unit.text;
+}
+const width = window.innerWidth;
+const height = window.innerHeight;
+const margin = 30;
+const numChars = 10;
+const textAreaWidth = width - margin * 2;
+function setup() {
+    console.log("test");
+    createCanvas(width, height);
+    colorMode(HSB, 100);
+    frameRate(30);
+    background(230);
+    noStroke();
+    textFont("Noto Sans JP");
+    //文字の位置
+    textAlign(CENTER, CENTER);
+}
+function draw() {
+    if (!player || !player.video) return;
+    circle(10, 10, 10);
+//フレーズを取得
+//もしサビなら中心に移動
+//中心に１文字ずつ表示
+//サビが終わっていたら各ノードに戻る
+//外周ノードに文字を追加
+//フレーズの文字数から円の半径を計算
+//3週目からは外のノードにする
+//回転数が2、回転回数が4で割り切れたら中心を軸に-45度回転
+//中心を軸に90度回転
 }
 
 },{"textalive-app-api":"cgMHd"}],"cgMHd":[function(require,module,exports) {
