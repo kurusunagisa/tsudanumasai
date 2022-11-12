@@ -65,25 +65,8 @@
   left: 0;
 }
 
-#fullOverlay {
-  width: 100%;
-  height: 100%;
-  z-index: 2147483647;
-  background: #646464cc;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-#fullOverlay .text {
-  width: 100%;
-  color: #fafafa;
-  text-align: center;
-  font-size: 24px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+body {
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=index.fc3849e6.css.map */

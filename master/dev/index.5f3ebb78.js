@@ -536,6 +536,28 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _textaliveAppApi = require("textalive-app-api");
 var _p5 = require("p5");
 var _p5Default = parcelHelpers.interopDefault(_p5);
+(function(d) {
+    var config = {
+        kitId: "hzb4bty",
+        scriptTimeout: 3000,
+        async: true
+    }, h = d.documentElement, t = setTimeout(function() {
+        h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+    }, config.scriptTimeout), tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a;
+    h.className += " wf-loading";
+    tk.src = "https://use.typekit.net/" + config.kitId + ".js";
+    tk.async = true;
+    tk.onload = tk.onreadystatechange = function() {
+        a = this.readyState;
+        if (f || a && a != "complete" && a != "loaded") return;
+        f = true;
+        clearTimeout(t);
+        try {
+            Typekit.load(config);
+        } catch (e) {}
+    };
+    s.parentNode.insertBefore(tk, s);
+})(document);
 const songleTimer = new (0, _textaliveAppApi.SongleTimer)({
     accessToken: "00000101-b8RiuAV",
     secretToken: "HQtMEczdpbvXSfgY7n3ht5G2T76AT9QR"
@@ -548,7 +570,9 @@ const player = new (0, _textaliveAppApi.Player)({
     mediaElement: document.querySelector("#media"),
     mediaBannerPosition: "bottom right",
     timer: songleTimer,
-    offset: -60
+    offset: -60,
+    valenceArousalEnabled: true,
+    vocalAmplitudeEnabled: true
 });
 window.addEventListener("beforeunload", (event)=>{
     event.preventDefault();
@@ -567,7 +591,7 @@ player.addListener({
     onAppReady,
     onTimerReady,
     onTimeUpdate,
-    onThrottledTimeUpdate,
+    //onThrottledTimeUpdate,
     onTextLoad
 });
 function onAppReady(app) {
@@ -578,6 +602,7 @@ function onAppReady(app) {
         pause.addEventListener("click", ()=>player.video && player.requestPause());
         rewind.addEventListener("click", ()=>player.video && player.requestMediaSeek(0));
     }
+    document.querySelector("#media").className = "disabled";
     if (!app.songUrl) // blues / First Note
     player.createFromSongUrl("https://piapro.jp/t/FDb1/20210213190029", {
         video: {
@@ -597,17 +622,17 @@ function onTimerReady() {
         location.reload();
     }else{
         window.name="";
-    }*/ player.requestPause();
+    }*/ document.getElementsByClassName("textalive-media-wrapper")[0].style.display = "none";
+    player.requestPause();
     artist.textContent = player.data.song.artist.name;
     song.textContent = player.data.song.name;
     document.querySelectorAll("button").forEach((btn)=>btn.disabled = false);
-    let p = player.video.firstPhrase;
+/*let p = player.video.firstPhrase;
     jump.disabled = !p;
-    while(p && p.next){
+    while (p && p.next) {
         p.animate = animatePhrase;
         p = p.next;
-    }
-}
+    }*/ }
 //拍の取得
 function onTimeUpdate(position) {
     const beat = player.findBeat(position);
@@ -616,80 +641,159 @@ function onTimeUpdate(position) {
 function onTextLoad(body) {
     document.querySelector("#dummy").textContent = body?.text;
 }
-function onThrottledTimeUpdate(pos) {
-    positionEl.textContent = String(Math.floor(pos));
-}
-function animatePhrase(now, unit) {
-    if (unit.contains(now)) phraseEl.textContent = unit.text;
-}
-new (0, _p5Default.default)((p5)=>{
+/*
+function animatePhrase(now, unit){
+    if (unit.contains(now)){
+        phraseEl.textContent = unit.text;
+    }
+}*/ const sketch = (p5)=>{
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const margin = 100;
-    const textAreaWidth = width - margin * 2;
-    const numChar = 10;
-    //星の座標と大きさ
-    const star = new Object();
-    //星の配列
-    let stars = [];
-    //textの幅
-    let scale = 1;
+    //表示する文字数
+    const numChar = 7;
+    //円の半径
+    let radius = height / 2 - 30;
+    let img = null;
+    const imageURL = "https://lh3.googleusercontent.com/BVUHVmvPUmjhu_gctJS_NBGZjF6ZuVIfe3bS4jzrF6gB3qsMV3tpyiE0znKn1MpOZOKaEqc-vb2NHpOmAmy2WGLlgGHEj6MVRm4_R6yu_vsihD5QMGTI0Qo65xhDIjikToPur7yBEeGyEqWw4CtB7_Qd0XwMaBpsR7Oc3Foo_N-2bGEIxjtSVu2UgbSUkjm1WqsJ5syzmODffWkkz159ZstxAm5TQQjMUoV-OPQ32b0UOt9l7nNRdinZV4pd5Ko3clMgFPGR0--zhaRu5Mlz7GpJb5D6lkPkkVqeEn7TlF7BC792AngzkF5FGG1tjufbUld7kmLFBncFsB6jelofgcRr_YogVewU23N9SMN1EXp7GHno2YLU2I4yq9kcAHN6gYHQKio63jnFV-NaVEiuIViIW27dA81IMW4ya-iNmhfdIiNZI66xTuLS6IZjXAbsYfQ6RdOIwYJUmvb7SDloOzwvPxUBQDqiRWEyMrZYdqz-cgWolbONxEnv0PbHu5_vUdnDBrtc71cVoRFsJGb8midyVACWWxc_bZvmvBt-uuxrb9mLVcT475PeCJVgq9A7Jl-IWkzQaxnx5VztFkDoxaBym2gNPcwsvs6iocLfVsCG0o78kIEu7FL1JWmKO1yE4q-crcgDI4cfB9EQZtz4ZVemCMojm7TrMFgWpngFKba6Tzs4og-x6mq_5BMj2FiQlsMI2SCYlW1X5PW86NHUCWM94hJ8kNc5BiUTDcivi_5jadGrOmjdNP1OgVcg2q1AIEW-GNafqVZJts6hvLSR6Nzkm1WD0lMwPPBLwsrMpoefIqgC8kLVBXdoyLqS0P0cBCtl-ZHcYfVQWIuS7lPOCplR3Hw7yXlmDNARtYpuXFFWYxu3GNmjtuxI31yRQqlHO-ndcMkgtdgBoOF_Fh-2ry59K5MUiCNV7B3bHkpc3QQiX2VDFDppUzG6aeHhGmYx0XM_mRWA_K9UfZL2dCtVtg=s924-no?authuser=1";
+    p5.preload = ()=>{
+        img = p5.loadImage(imageURL);
+    };
     p5.setup = ()=>{
-        console.log("test");
         p5.createCanvas(width, height);
         p5.colorMode(p5.HSB, 360, 100, 100, 100);
         p5.frameRate(30);
-        p5.background(20);
+        p5.background(0);
         p5.noStroke();
-        p5.textFont("Noto Sans JP");
+        p5.textFont("fot-seurat-pron");
         //文字の位置
         p5.textAlign(p5.CENTER, p5.CENTER);
-        p5.circle(10, 10, 10);
+        p5.frameRate(60);
     };
-    p5.draw = ()=>{
-        if (!player || !player.video) return;
-        const position = player.timer.position;
-        //背景
-        p5.background(60);
-        const beat = player.findBeat(position);
-        if (beat) {
-            //console.log(beat.position)
-            p5.fill(360, 100, 100);
-            p5.scale(scale, scale);
-            scale += 1;
-            p5.rect(10, 10, 10, 10);
+    const radpi = Math.PI / (numChar - 1);
+    let rad = [];
+    for(let i = numChar - 1; i >= 0; i--)rad.push(radpi * i);
+    let cosrad = [];
+    let sinrad = [];
+    for (r of rad){
+        cosrad.push(Math.cos(r));
+        sinrad.push(Math.sin(r));
+    }
+    let index = 0;
+    let previousChar;
+    let previousIndex;
+    let phraseEnd;
+    let star = [];
+    p5.setStar = (flag)=>{
+        p5.background(0);
+        p5.stroke(255);
+        if (flag) {
+            star.length = 0;
+            for(let i = 0; i < index; i++)star.push({
+                weight: Math.random() * 100 % 4,
+                width: Math.random() * 10000 % width,
+                height: Math.random() * 10000 % height
+            });
         }
-        let phrase = player.video.findPhrase(position - 100, {
-            loose: true
-        });
-        let word = player.video.findWord(position - 100, {
-            loose: true
-        });
-        let char = player.video.findChar(position - 100, {
-            loose: true
-        });
-        if (char) {
-            //最初からの文字数
-            let index = player.video.findIndex(char);
-            console.log(phrase.text, phrase.endTime, word.text, word.endTime, char.text, char.endTime, index);
-        /*while(char){
-                if(char.endTime + 200 < position){
-                    break;
-                }
-                if (char.startTime < position+100){
-                    //文字の始まりが単語の始まりなら
-                    //文字が足りなければh左の文字をクリアして左詰め
-                    if(word.startTime == char.startTime){
-                        nword = player.video.findWord();
-                        if(nword.charCount < (index % numChar)){
-                            break;
-                        }
-                    }
-                    //const x = ((index % ))
-                }
-            }*/ }
+        for(let i1 = 0; i1 < index; i1++){
+            p5.strokeWeight(star[i1]?.weight);
+            p5.point(star[i1]?.width, star[i1]?.height);
+        }
+        p5.noStroke();
     };
-});
+    let earthRad = 0;
+    p5.draw = ()=>{
+        if (!player || !player.video || !player.isPlaying) return;
+        const position = player.timer.position;
+        let char = player.video.findChar(position + 150, {
+            loose: true
+        });
+        let bchar = player.video.findChar(position);
+        let word = player.video.findWord(position + 200, {
+            loose: true
+        });
+        let phrase = player.video.findPhrase(position + 300);
+        //console.log(char.text);
+        //一定以上の時間がたった文字は消す
+        /*if(Math.round(word.endTime + 300)/100 == position/100){
+            texts.forEach((text, index) =>{
+                if(text.endTime+1000 < position){
+                    texts.splice(index,1);
+                    //delete texts[index];
+                }
+            });
+        }*/ //console.log(phrase?.endTime/100,position/100);
+        phraseEnd = isNaN(phrase?.endTime) ? phraseEnd : phrase?.endTime;
+        //console.log(phraseEnd);
+        if (Math.round(phraseEnd / 120) == Math.round(position / 120)) p5.setStar(true);
+        //近づいたら文字を表示
+        //console.log(player.video.findIndex(char))
+        if (bchar?.endTime > position) p5.setStar(false);
+        if (char?.startTime - 150 < position) {
+            //文字が上限を超えたら最初の要素から消す
+            /*if(texts.length >= numChar){
+                texts.shift();
+                p5.background(60);
+            }*/ //texts.push(char);
+            //console.log(texts);
+            previousIndex = index;
+            if (previousChar?.endTime != char?.endTime) index++;
+            console.log(index, player.video.findIndex(char), char?.text, char?.endTime);
+            //console.log(index);
+            previousChar = char;
+            const vocal = player.getVocalAmplitude(position + 60);
+            const maxVocal = player.getMaxVocalAmplitude();
+            let size;
+            let alpha;
+            if (position < char.startTime + 100) {
+                const progress = (char.startTime - position) / 1000;
+                const eased = (0, _textaliveAppApi.Ease).bounceOut(progress);
+                //console.log("eased:",eased);
+                size = vocal / maxVocal * 200 + 0.12 * height * (1 - eased);
+                //console.log("size:", size);
+                alpha = 100 - (char.startTime - position) / 4;
+            }
+            /*if(position > char.startTime + 150){
+                const progress = (char.endTime - position)/1000;
+                const eased = Ease.quadIn(progress);
+                console.log("eased:",eased);
+                size -= 0.2 * height * (1- eased);
+                console.log("size:", size);
+                alpha = 100 - (char.startTime - position)/4;
+            }*/ /*if (index % numChar == 0 && index != previousIndex){
+                radius += 55;
+            }
+            if(Math.floor(index / numChar % 6) == 0){
+                radius = height/2 - 60;
+            }*/ x = width / 2 + radius * cosrad[index % numChar];
+            y = height - 80 - radius * sinrad[index % numChar];
+            p5.fill(index % 1000, 255, 255, 70, alpha);
+            p5.circle(x, y, size);
+            p5.fill(0, 0, 100);
+            p5.textSize(size * 0.8);
+            p5.text(char.text, x, y);
+        }
+        /*p5.fill(0,0,100);
+        p5.textSize(20);
+        texts.forEach((text, index) =>{
+            x = width/2 + radius * cosrad[index];
+            y = height - 30 - radius * sinrad[index];
+            rad -= pi12;
+            //p5.rotate(Math.PI/2-rad);
+            p5.text(text.text,x,y);
+        });*/ const beat = player.findBeat(position);
+        p5.push();
+        p5.translate(width / 2, height);
+        if (beat) {
+            if (beat.position % 2 == 1) p5.fill(180, 255, 255, 200);
+            else p5.fill(0, 0, 0);
+        }
+        p5.circle(0, 0, height / 1.73);
+        p5.rotate(earthRad += Math.PI / 720);
+        p5.image(img, -height / 3.3, -height / 3.3, height / 1.65, height / 1.65);
+        p5.pop();
+    };
+};
+new (0, _p5Default.default)(sketch);
 
 },{"textalive-app-api":"cgMHd","p5":"7Uk5U","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cgMHd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
