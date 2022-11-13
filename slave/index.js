@@ -1,6 +1,6 @@
 import  { ReadlineParser, SerialPort } from "serialport";
 
-const port = new SerialPort({path: 'COM3', baudRate: 9600});
+const port = new SerialPort({path: 'COM3', baudRate: 115200});
 const parser = new ReadlineParser( { delimiter: '\n'});
 port.pipe(parser);
 
@@ -16,22 +16,11 @@ player.addPlugin(new Plugin.Beat({offset: -100}));
 
 player.on("beatPlay",
     function(ev) {
-        switch(ev.data.beat.number){
-            case 1:
-                write("OK");
-                break;
-            case 2:
-                write("NG");
-                break;
-            case 3:
-                write("NG");
-                break;
-            case 4:
-                write("NG");
-                break;
-        }
+        write((ev.data.beat.number).toString());
     }
 )
+
+
 function write(data) {
     console.log('Write: ' + data);
     port.write(data , function(err, results) {
