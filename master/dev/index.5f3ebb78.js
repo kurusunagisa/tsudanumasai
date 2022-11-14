@@ -7390,7 +7390,7 @@ function gn() {
                 fn
             ] : "undefined" == typeof window ? [
                 2,
-                require("cee49e87f31b05f0")
+                require("f41b0a44f9b3d038")
             ] : window.Songle && window.Songle.Player ? [
                 2,
                 window.Songle
@@ -8031,7 +8031,7 @@ function wn(t, e, r) {
                         3
                     ] : [
                         4,
-                        require("6f79f0b28854126b")
+                        require("a7b7b1a2e2e4ada")
                     ];
                 case 2:
                     v = g.sent(), g.label = 3;
@@ -11780,7 +11780,7 @@ var Wi = function() {
 console.log("# ライセンス表記に関するガイドライン\n\n国立研究開発法人産業技術総合研究所\n人間情報インタラクション研究部門\nメディアインタラクション研究グループ\n\nTextAlive App APIは非商用利用に限り、どなたでも無料・無保証で利用することができます。\nただし、原則としてTextAlive App APIを利用している旨を TextAlive https://textalive.jp/ サイト内楽曲ページまたは https://developer.textalive.jp/ にハイパーリンクした上で、利用しているシステムもしくは外部サイト等に表示する必要があります。\n\n# お問い合わせ\n\ntextalive-ml@aist.go.jp");
 var Yi = e.exports.sortedIndex;
 
-},{"axios":"jo6P5","cee49e87f31b05f0":"CiNsb","6f79f0b28854126b":"e3yYO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jo6P5":[function(require,module,exports) {
+},{"axios":"jo6P5","f41b0a44f9b3d038":"CiNsb","a7b7b1a2e2e4ada":"e3yYO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jo6P5":[function(require,module,exports) {
 module.exports = require("./lib/axios");
 
 },{"./lib/axios":"63MyY"}],"63MyY":[function(require,module,exports) {

@@ -6,4 +6,22 @@
   bottom: 0;
 }
 
+.music_title {
+  font-size-adjust: .6;
+  font-family: ab-chalk;
+  font-size: 20px;
+}
+
+.music_card {
+  transition: all .1s;
+}
+
+.music_card:hover {
+  color: red;
+}
+
+.music_abstract {
+  font-family: fot-seurat-pron;
+}
+
 /*# sourceMappingURL=select.8a02f2c9.css.map */
