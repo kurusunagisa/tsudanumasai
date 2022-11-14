@@ -10,6 +10,18 @@ import P5,{Image} from "p5";
     h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
   })(document);
 
+window.onbeforeunload =  (event) => {
+    player.requestPause() && player.requestStop() && player.requestMediaSeek(0);
+    //player.dispose();
+    return  "false";
+};
+window.onunload =  (event) => {
+    player.requestPause() && player.requestStop() && player.requestMediaSeek(0);
+    // && player.dispose();
+    return "Check";
+};
+
+
 const songleTimer = new SongleTimer({accessToken:"00000101-b8RiuAV",
 secretToken:"HQtMEczdpbvXSfgY7n3ht5G2T76AT9QR"})
 
@@ -24,12 +36,6 @@ const player = new Player({
     offset: -60,
     valenceArousalEnabled: true,
     vocalAmplitudeEnabled: true,
-});
-
-window.addEventListener('beforeunload', (event) => {
-    event.preventDefault();
-    player.requestPause() && player.requestStop() && player.requestMediaSeek(0) && player.dispose();
-    return "";
 });
 
 const play = document.querySelector("#play");
@@ -168,7 +174,7 @@ const sketch = (p5) =>{
         p5.stroke(255);
         if(flag){
             star.length = 0;
-            for(let i = 0;i < index;i++){
+            for(let i = 0;i < index*index;i++){
                 star.push({weight: Math.random()*100%4, width: Math.random()*10000%width, height: Math.random()*10000%height})
             }
         }

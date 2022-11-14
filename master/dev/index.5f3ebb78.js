@@ -558,6 +558,16 @@ var _p5Default = parcelHelpers.interopDefault(_p5);
     };
     s.parentNode.insertBefore(tk, s);
 })(document);
+window.onbeforeunload = (event)=>{
+    player.requestPause() && player.requestStop() && player.requestMediaSeek(0);
+    //player.dispose();
+    return "false";
+};
+window.onunload = (event)=>{
+    player.requestPause() && player.requestStop() && player.requestMediaSeek(0);
+    // && player.dispose();
+    return "Check";
+};
 const songleTimer = new (0, _textaliveAppApi.SongleTimer)({
     accessToken: "00000101-b8RiuAV",
     secretToken: "HQtMEczdpbvXSfgY7n3ht5G2T76AT9QR"
@@ -573,11 +583,6 @@ const player = new (0, _textaliveAppApi.Player)({
     offset: -60,
     valenceArousalEnabled: true,
     vocalAmplitudeEnabled: true
-});
-window.addEventListener("beforeunload", (event)=>{
-    event.preventDefault();
-    player.requestPause() && player.requestStop() && player.requestMediaSeek(0) && player.dispose();
-    return "";
 });
 const play = document.querySelector("#play");
 const jump = document.querySelector("#jump");
@@ -688,7 +693,7 @@ function animatePhrase(now, unit){
         p5.stroke(255);
         if (flag) {
             star.length = 0;
-            for(let i = 0; i < index; i++)star.push({
+            for(let i = 0; i < index * index; i++)star.push({
                 weight: Math.random() * 100 % 4,
                 width: Math.random() * 10000 % width,
                 height: Math.random() * 10000 % height
@@ -7390,7 +7395,7 @@ function gn() {
                 fn
             ] : "undefined" == typeof window ? [
                 2,
-                require("f41b0a44f9b3d038")
+                require("cee49e87f31b05f0")
             ] : window.Songle && window.Songle.Player ? [
                 2,
                 window.Songle
@@ -8031,7 +8036,7 @@ function wn(t, e, r) {
                         3
                     ] : [
                         4,
-                        require("a7b7b1a2e2e4ada")
+                        require("6f79f0b28854126b")
                     ];
                 case 2:
                     v = g.sent(), g.label = 3;
@@ -11780,7 +11785,7 @@ var Wi = function() {
 console.log("# ライセンス表記に関するガイドライン\n\n国立研究開発法人産業技術総合研究所\n人間情報インタラクション研究部門\nメディアインタラクション研究グループ\n\nTextAlive App APIは非商用利用に限り、どなたでも無料・無保証で利用することができます。\nただし、原則としてTextAlive App APIを利用している旨を TextAlive https://textalive.jp/ サイト内楽曲ページまたは https://developer.textalive.jp/ にハイパーリンクした上で、利用しているシステムもしくは外部サイト等に表示する必要があります。\n\n# お問い合わせ\n\ntextalive-ml@aist.go.jp");
 var Yi = e.exports.sortedIndex;
 
-},{"axios":"jo6P5","f41b0a44f9b3d038":"CiNsb","a7b7b1a2e2e4ada":"e3yYO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jo6P5":[function(require,module,exports) {
+},{"axios":"jo6P5","cee49e87f31b05f0":"CiNsb","6f79f0b28854126b":"e3yYO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jo6P5":[function(require,module,exports) {
 module.exports = require("./lib/axios");
 
 },{"./lib/axios":"63MyY"}],"63MyY":[function(require,module,exports) {

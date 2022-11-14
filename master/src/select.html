@@ -5,7 +5,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="select.css" />
-    <script>
+    <script rel="preload">
       (function(d) {
         var config = {
           kitId: 'hzb4bty',
@@ -17,56 +17,33 @@
     </script>
   </head>
   <body>
-    <h3 class="display-3" style="font-family: vdl-linegr;"><span style="font-family:'ab-sekka';font-size: 100px;">演出</span>と<span style="font-family:vdl-kuromincho;font-size: 100px;">ひかり</span>で<span style="color:red">楽</span>しむ音楽</h3>
-    <div>
-      <div class="row btn position-relative" style="width:100vw">
-        <div class="bg-warning container music_card">
-          <h5 class="title music_title">Shiny Song</h5>
-          <p class="text music_abstract">「Miku's Origin シンクロニシティ」のテーマソングです！</p>
-          <a href="http://localhost:1234/index.html?ta_song_url=" target="_blank" rel="noopener noreferrer" class="stretched-link"></a>
-        </div>
-      </div>
-      <div class="row btn position-relative" style="width:100vw">
-        <div class="bg-success container music_card">
-          <h5 class="title music_title">グリーンライツ・セレナーデ</h5>
-          <p class="text music_abstract">盛り上がる曲です！マジカルミライ2019テーマソング</p>
-          <a href="http://localhost:1234/index.html?ta_song_url=https%3A%2F%2Fwww.nicovideo.jp%2Fwatch%2Fsm33480697" target="_blank" rel="noopener noreferrer" class="card-link stretched-link"></a>
-        </div>
-      </div>
-      <div class="row btn position-relative" style="width:100vw">
-        <div class="bg-secondary container music_card">
-          <h5 class="title music_title">砂の惑星</h5>
-          <p class="text music_abstract">ハチ（米津玄師）の残した人気曲！マジカルミライ2017テーマソング</p>
-          <a href="http://localhost:1234/index.html?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DOZjUOAjU5cw" target="_blank" rel="noopener noreferrer" class="card-link stretched-link"></a>
-        </div>
-      </div>
-      <div class="row btn position-relative" style="width:100vw">
-        <div class="bg-info container music_card">
-          <h5 class="title music_title">ネクストネスト</h5>
-          <p class="text music_abstract">EDM曲！ブチ上がること間違いなし！マジカルミライ2014テーマソング</p>
-          <a href="http://localhost:1234/index.html?ta_song_url=https%3A%2F%2Fwww.nicovideo.jp%2Fwatch%2Fsm23881953" target="_blank" rel="noopener noreferrer" class="card-link stretched-link"></a>
-        </div>
-      </div>
-      <div class="row btn position-relative" style="width:100vw">
-        <div class="bg-light container music_card">
-          <h5 class="title music_title">フォニィ</h5>
-          <p class="text music_abstract">Youtube3000万回再生の大ヒット曲！</p>
-          <a href="http://localhost:1234/index.html?ta_song_url=https%3A%2F%2Fwww.nicovideo.jp%2Fwatch%2Fsm38833751" target="_blank" rel="noopener noreferrer" class="card-link stretched-link"></a>
-        </div>
+    <div class="wrap">
+    <h3 class="display-3 container head" style="font-family: vdl-linegr;"><span style="font-family:'ab-neuron';font-size: 100px;">リリック</span>と<span style="font-family:vdl-kuromincho;font-size: 100px;">ひかり</span>で<span style="color:red">楽</span>しむ<span style="font-family:ab-andante;font-size: 100px;">音楽</span></h3>
+    <div class="container lead abstract">
+      <p>音楽と一体化するようにプログラムされたリリックビデオ・リング型LEDによる</p><p>次世代の音楽鑑賞を体験してください！</p>
+    </div>
+    <div class="container induction">
+      再生するには下のバナーをクリック↓
+    </div>
+    <div class="position-relative" style="width:100vw;">
+      <div class="bg-warning music_card">
+        <h5 class="title music_title">Shiny Song</h5>
+        <p class="text music_abstract">2021年2月に実施された「Miku's Origin シンクロニシティ」のテーマソングです！</p>
+        <a href="http://localhost:1234/index.html?ta_song_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DOZjUOAjU5cw" target="_blank" rel="noopener noreferrer" class="stretched-link"></a>
       </div>
     </div>
-    <h5 class="display-5" style="font-family: vdl-linegr;">好きな楽曲を流そう</h5>
-    <div class="container">
-      <label class="form-label" style="font-family: fot-seurat-pron;">楽曲のURL(Youtube ニコニコ動画)を入力しよう！</label>
-      <input class="form-control" type="text" id="url" name="url" style="width: 500px;">
-      <button type="button" class="btn-outline-primary" id="search" style="font-family: fot-seurat-pron">再生！</button>
+    <h5 class="display-5 container" style="font-family: vdl-linegr;">好きな楽曲を流そう</h5>
+    <div class="container" style="display:flex;">
+      <label class="form-label" style="font-family:fot-seurat-pron;text-align: center;line-height: 30px;">楽曲のURL(Youtube ニコニコ動画)を入力しよう！</label>
+      <input class="form-control" type="text" id="url" name="url" style="width: 500px; margin-left: 15px; margin-right: 15px;">
+      <button type="button" class="btn btn-outline-primary" id="search" style="font-family: fot-seurat-pron;">再生！</button>
     </div>
 
     <script type="module" src="./select.js"></script>
-    <div class="footer text-center">
+    <footer class="footer text-center">
       <div class="container">
-        <p>本システムは<a href="https://developer.textalive.jp">TextAlive APP API</a>と<a href="https://api.songle.jp">Songle Sync API</a>を使用しております</p>
+        <p>本システムは<a href="https://developer.textalive.jp">TextAlive App API</a>と<a href="https://api.songle.jp">Songle Sync API</a>を使用しています</p>
       </div>
-    </div>
+    </footer>
   </body>
 </html>

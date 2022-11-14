@@ -9,19 +9,50 @@
 .music_title {
   font-size-adjust: .6;
   font-family: ab-chalk;
-  font-size: 20px;
+  font-size: 35px;
 }
 
 .music_card {
+  background-image: url("010752_3.8c8dd55a.png");
+  background-color: rbga(255, 255, 255, .9);
+  background-blend-mode: lighten;
+  text-align: center;
   transition: all .1s;
 }
 
 .music_card:hover {
-  color: red;
+  box-sizing: border-box;
+  border: 5px solid #ff6f6f;
 }
 
 .music_abstract {
   font-family: fot-seurat-pron;
+}
+
+.abstract {
+  text-align: center;
+  margin-top: 30px;
+  font-family: fot-seurat-pron;
+  font-size: 25px;
+}
+
+.induction {
+  text-align: center;
+  font-family: vdl-logomaru-jr;
+  font-size: 30px;
+  display: block;
+}
+
+.head {
+  text-align: center;
+}
+
+body {
+  background-color: #a6f6f21d;
+}
+
+.wrap {
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=select.8a02f2c9.css.map */
