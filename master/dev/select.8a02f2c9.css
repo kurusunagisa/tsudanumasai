@@ -55,4 +55,8 @@ body {
   overflow: hidden;
 }
 
+input:focus {
+  outline: none;
+}
+
 /*# sourceMappingURL=select.8a02f2c9.css.map */
