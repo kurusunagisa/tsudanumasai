@@ -1,6 +1,8 @@
 <html>
   <head>
     <title>TextAlive App API | phrase example</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/index.fc3849e6.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -11,19 +13,10 @@
     </div>
     <div id="overlay">
       <div id="media"></div>
-      <div id="meta">
-        <div id="artist">
-          <strong>artist:</strong> <span>-</span>
-        </div>
-        <div id="song">
-          <strong>song:</strong> <span>-</span>
-        </div>
-      </div>
       <div id="control" style="display: none">
-        <button id="play" disabled="">再生</button>
-        <button id="jump" disabled="">歌詞頭出し</button>
-        <button id="pause" disabled="">一時停止</button>
-        <button id="rewind" disabled="">巻き戻し</button>
+        <button class="btn btn-primary" id="pause" disabled="">再生する前に押す</button>
+        <button class="btn btn-primary" id="play" disabled="">>再生</button>
+        <button class="btn btn-primary" id="jump" disabled=""><|歌詞頭出し</button>
       </div>
     </div>
     <div id="dummy"></div>

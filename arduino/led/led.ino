@@ -39,6 +39,7 @@ float diffTime = 0;
 
 bool roundFlag = false;
 bool alterFlag = false;
+bool lightFlag = false;
 
 void updateVolumeLED(){
   float currentTime = micros();
@@ -67,6 +68,7 @@ void updateVolumeLED(){
 void selectLightingType(int lightingType, int ringNumber){
   switch(lightingType){
     case 1:
+      lightFlag = true;
       FastLED.setBrightness(90);
       alterFlag = false;
       setRingFlash(ringNumber);
@@ -170,12 +172,13 @@ long r_16 = 0;
 long r_35 = 0;
 long r_45 = 0;
 
+
 void RingFlash16(bool flag){
   if(flag){
     r_16 = random(0,255);
   }
   for(int i = 0;i < NUM_LEDS_16;i++){
-    ring16_leds[i] = CHSV(r_16,255,255);
+    ring16_leds[i] = CHSV(r_16,255,lightFlag ? 255 : 0);
   }
   FastLED.show();
 }
@@ -185,7 +188,7 @@ void RingFlash35(bool flag){
     r_35 = random(0,255);
   }
   for(int i = 0;i < NUM_LEDS_35;i++){
-    ring35_leds[i] = CHSV(r_35,255,255);
+    ring35_leds[i] = CHSV(r_35,255,lightFlag ? 255 : 0);
   }
   FastLED.show();
 }
@@ -195,7 +198,7 @@ void RingFlash45(bool flag){
     r_45 = random(0,255);
   }
   for(int i = 0;i < NUM_LEDS_45;i++){
-    ring45_leds[i] = CHSV(r_45,255,255);
+    ring45_leds[i] = CHSV(r_45,255,lightFlag ? 255 : 0);
   }
   FastLED.show();
 }
@@ -358,10 +361,9 @@ void loop() {
     //digitalWrite(LED, HIGH);
     String finish = "99";
     if(finish.compareTo(bufferStr) == 0){
-      digitalWrite(LED,HIGH);
       clearAllLED();
     }else{
-      digitalWrite(LED,LOW);
+      digitalWrite(LED,lightFlag);
       //LEDバーの起動
       ledEnd = false;
       ledCount = 0;
@@ -373,6 +375,7 @@ void loop() {
         RingAlternated45(false);
       }
     }
+    lightFlag = false;
   }
   //RingFlash35(false);
   //RingFlash45(false);

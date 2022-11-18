@@ -13,8 +13,8 @@ var player = new Player({
 });
 player.addPlugin(new Plugin.SongleSync());
 player.addPlugin(new Plugin.Beat({offset: 20}));
-player.addPlugin(new Plugin.Variation({groupCount: 3, offset: 630}));
-player.addPlugin(new Plugin.Chorus({offset: 630}));
+player.addPlugin(new Plugin.Variation({groupCount: 3, offset: -200}));
+player.addPlugin(new Plugin.Chorus({offset: -200}));
 
 let light = "88";
 

@@ -19,14 +19,19 @@ var fontFace = new FontFace(
 fontFace.load();
 
 window.onbeforeunload =  (event) => {
+    event.returnValue = "OKを押してください";
     player.requestPause() && player.requestStop() && player.requestMediaSeek(0);
     //player.dispose();
-    return  "false";
+    //return  "false";
+    event.stopImmediatePropagation();
 };
 window.onunload =  (event) => {
     player.requestPause() && player.requestStop() && player.requestMediaSeek(0);
+    event.returnValue = "OKを押してください";
     // && player.dispose();
-    return "Check";
+    event.stopImmediatePropagation();
+
+     //return "Check";
 };
 
 
@@ -49,7 +54,6 @@ const player = new Player({
 const play = document.querySelector("#play");
 const jump = document.querySelector("#jump");
 const pause = document.querySelector("#pause");
-const rewind = document.querySelector("#rewind");
 
 const positionEl = document.querySelector("#position strong");
 const phraseEl = document.querySelector("#phrase");
@@ -65,15 +69,19 @@ player.addListener({
     //onThrottledTimeUpdate,
     onTextLoad,
     //onPlay,
+    onStop
 })
+
+function onStop(){
+    window.location.href = window.location.href;
+}
 
 function onAppReady(app){
     if (!app.managed){
         document.querySelector("#control").style.display = "block";
         play.addEventListener("click", () => player.video && player.requestPlay());
         jump.addEventListener("click", () => player.video && player.requestMediaSeek(player.video.firstPhrase.startTime));
-        pause.addEventListener("click", () => player.video && player.requestPause());
-        rewind.addEventListener("click", () => player.video && player.requestMediaSeek(0));
+        pause.addEventListener("click", () => player.video && player.requestPause() && onStop());
     }
     document.querySelector("#media").className = "disabled";
     if (!app.songUrl) {
@@ -95,8 +103,6 @@ function onAppReady(app){
 function onTimerReady(){
     document.getElementsByClassName("textalive-media-wrapper")[0].style.display = "none";
     player.requestPause();
-    artist.textContent = player.data.song.artist.name;
-    song.textContent = player.data.song.name;
     document.querySelectorAll("button").forEach((btn) => (btn.disabled = false));
 }
 
@@ -193,8 +199,22 @@ const sketch = (p5) =>{
         const position = player.timer.position;
 
         const chorus = player.getChoruses();
+        /*for(let i = 0; i < 3;i++){
+            if(chorus[i].startTime < position && chorus[i].endTime > position){
+                const stheta = Math.sin(Math.PI/6);
+                const ctheta = Math.cos(Math.PI/6);
+                p5.fill(255);
+                for(let w = 0;w < 50;w++){
+                    for(let h = 0;h < 600;h+=2){
+                        const wx = (w+Math.random())*stheta;
+                        const hy = (h+Math.random())*ctheta;
+                        p5.circle(wx,hy,3);
+                    }
+                }
+            }
+        }*/
         //らせん
-        if(position < chorus[1]?.startTime){
+        if(position > chorus[0].endTime && position < chorus[1]?.startTime){
             const h = 200 * Math.sin(indexRad);
             p5.push();
             const x_1 = h + width / 2;
